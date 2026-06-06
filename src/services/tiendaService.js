@@ -147,3 +147,57 @@ export const getLocalidades = async () => {
         return [];
     }
 };
+
+export const getDistritos = async () => {
+    try {
+        const response = await fetch(`${API_BASE}/distritos/`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("Error cargando distritos:", error);
+        return [];
+    }
+}
+
+export const getMunicipios = async () => {
+    try {
+        const response = await fetch(`${API_BASE}/municipios/`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("Error cargando municipios:", error);
+        return [];
+    }
+}
+
+// GET /api/usuarios/coordinadores
+export const getCoordinadores = async () => {
+    try {
+        const response = await fetch(`${API_BASE}/usuarios/coordinadores`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("Error cargando coordinadores:", error);
+        return [];
+    }
+};
+
+// GET /api/usuarios/capitanes
+export const getCapitanes = async () => {
+    try {
+        const response = await fetch(`${API_BASE}/usuarios/capitanes`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("Error cargando capitanes:", error);
+        return [];
+    }
+};

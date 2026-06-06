@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import RutaProtegida from './RutaProtegida'; 
 import LoginPage from '../pages/AuthPage';
 import TiendaPage from '../pages/TiendaPage';
+import CrearTienda from '../pages/CrearTiendaPage';
 
 export default function AppLayout() {
   const location = useLocation();
@@ -16,7 +17,11 @@ export default function AppLayout() {
         <Routes>
           <Route path="/" element={<Navigate to="/tiendas" replace />} />
           <Route path="/login" element={<LoginPage />} />
+
           <Route path="/tiendas" element={<RutaProtegida><TiendaPage /></RutaProtegida>} />
+          <Route path="/tiendas/crearTienda" element={<RutaProtegida><CrearTienda /></RutaProtegida>} />
+          <Route path="/tiendas/verTienda" element={<RutaProtegida><CrearTienda /></RutaProtegida>} />
+
         </Routes>
       </div>
     </>
