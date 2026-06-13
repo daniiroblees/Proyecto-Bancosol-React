@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
-import { buscarTienda, guardarTienda, getCadenas, getZonas, getLocalidades, getCoordinadores, getCapitanes, getMunicipios, getDistritos } from '../services/tiendaService';
+import { buscarTienda, guardarTienda, getCadenas, getZonas, getLocalidades, getCoordinadores, getCapitanes, getMunicipios, getDistritos, getParticipacionesTienda } from '../services/tiendaService';
 import '../assets/global.css';
 import '../assets/form_crear.css';
 
@@ -23,10 +23,13 @@ export default function CrearTienda() {
     //Estado para el formulario
     const [formData, setFormData] = useState({
         nombre: '', lineales: '', domicilio: '', codigoPostal: '',
-        cadenaId: '', zonaId: '', municipioId: '', localidadId: '', distritoId: '',
-        coordinadorPrimaveraId: '', capitanPrimaveraId: '',
-        coordinadorGRId: '', capitanGRId: ''
+        cadenaId: '', zonaId: '', municipioId: '', localidadId: '', 
+        distritoId: '', capitanId: ''
     });
+
+    // Asignaciones de campañas
+    const [asignaciones, setAsignaciones] = useState({});
+    const [participacionesActuales, setParticipacionesActuales] = useState([]);
 
     //Cargar datos iniciales
     useEffect(() => {
@@ -45,19 +48,6 @@ export default function CrearTienda() {
             if (esEdicion) {
                 const tienda = await buscarTienda(idTienda);
                 if (tienda) {
-                    // Extraer campañas
-                    let coordPrim = '', capPrim = '', coordGR = '', capGR = '';
-                    if (tienda.tiendasCampanya) {
-                        tienda.tiendasCampanya.forEach(tc => {
-                            if (tc.campanya?.tipoCampanya?.id === 2) {
-                                if (tc.coordinador) coordPrim = tc.coordinador.id;
-                                if (tc.capitan) capPrim = tc.capitan.id;
-                            } else if (tc.campanya?.tipoCampanya?.id === 1) {
-                                if (tc.coordinador) coordGR = tc.coordinador.id;
-                                if (tc.capitan) capGR = tc.capitan.id;
-                            }
-                        });
-                    }
 
                     setFormData({
                         nombre: tienda.nombre || '',
@@ -69,18 +59,27 @@ export default function CrearTienda() {
                         municipioId: tienda.localidad?.municipio?.id || '',
                         localidadId: tienda.localidad?.id || '',
                         distritoId: tienda.distrito?.id || '',
-                        coordinadorPrimaveraId: coordPrim,
-                        capitanPrimaveraId: capPrim,
-                        coordinadorGRId: coordGR,
-                        capitanGRId: capGR
+                        capitanId: tienda.capitan?.id || ''
                     });
+
+                    const dataParticipaciones = await getParticipacionesTienda(idTienda);
+
+                    if (dataParticipaciones && dataParticipaciones.length > 0) {
+                        setParticipacionesActuales(dataParticipaciones);
+                        
+                        //  diccionario { idCampanya: idCoordinador }
+                        const asignacionesIniciales = {};
+                        dataParticipaciones.forEach(p => {
+                            asignacionesIniciales[p.campanya.id] = p.coordinador?.id || "";
+                        });
+                        setAsignaciones(asignacionesIniciales);
+                    }
                 }
             }
         };
         cargarDatos();
     }, [idTienda, esEdicion]);
 
-    //Lógica de cascada y visibilidad
     const handleChange = (e) => {
         const { name, value } = e.target;
         
@@ -97,6 +96,14 @@ export default function CrearTienda() {
         }
     };
 
+    // Manejar coordiandores
+    const handleCoordinadorChange = (campanyaId, coordinadorId) => {
+        setAsignaciones(prev => ({
+            ...prev,
+            [campanyaId]: coordinadorId
+        }));
+    };
+
     // Arrays filtrados 
     const municipiosFiltrados = listas.municipios.filter(m => m.zona?.id === Number(formData.zonaId));
     const localidadesFiltradas = listas.localidades.filter(l => l.municipio?.id === Number(formData.municipioId));
@@ -108,21 +115,23 @@ export default function CrearTienda() {
     //Enviar formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const campanyaIds = Object.keys(asignaciones).map(Number);
+        const coordinadorIds = Object.values(asignaciones).map(val => val ? Number(val) : null);
         
         // Limpiamos los campos vacíos a null 
-        const payload = {
+        const datosTienda = {
             id: esEdicion ? idTienda : null,
             ...formData,
             // Convertimos strings vacíos a null para campos opcionales numéricos
             lineales: formData.lineales ? Number(formData.lineales) : 0,
             distritoId: formData.distritoId ? Number(formData.distritoId) : null,
-            coordinadorPrimaveraId: formData.coordinadorPrimaveraId ? Number(formData.coordinadorPrimaveraId) : null,
-            capitanPrimaveraId: formData.capitanPrimaveraId ? Number(formData.capitanPrimaveraId) : null,
-            coordinadorGRId: formData.coordinadorGRId ? Number(formData.coordinadorGRId) : null,
-            capitanGRId: formData.capitanGRId ? Number(formData.capitanGRId) : null,
+            capitanId: formData.capitanId ? Number(formData.capitanId) : null,
+            campanyaIds: campanyaIds,
+            coordinadorIds: coordinadorIds
         };
 
-        const exito = await guardarTienda(payload);
+        const exito = await guardarTienda(datosTienda);
         if (exito) {
             navigate('/tiendas');
         } else {
@@ -220,36 +229,53 @@ export default function CrearTienda() {
                         </section>
 
                         <section className="form-section">
-                            <h3 className="form-section-title">Coordinadores y Capitanes</h3>
+                            <h3 className="form-section-title">Coordinadores de Campañas</h3>
+                            
+                            {participacionesActuales.length > 0 ? (
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+                                    {participacionesActuales.map((p) => (
+                                        <div key={p.campanya.id} className="form-group" style={{ width: '100%' }}>
+                                            <label 
+                                                htmlFor={`coord_${p.campanya.id}`}
+                                                style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'block' }}
+                                                title={p.campanya.nombre}
+                                            >
+                                                {p.campanya.nombre}
+                                            </label>
+                                            <select
+                                                id={`coord_${p.campanya.id}`}
+                                                className="campanya-select"
+                                                value={asignaciones[p.campanya.id] || ""}
+                                                onChange={(e) => handleCoordinadorChange(p.campanya.id, e.target.value)}
+                                                disabled={esViendo}
+                                                style={{ width: '100%' }}
+                                            >
+                                                <option value="">Sin asignar</option>
+                                                {listas.coordinadores.map(coord => (
+                                                    <option key={coord.id} value={coord.id}>
+                                                        {coord.nombre}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', padding: '10px 0' }}>
+                                    {idTienda 
+                                        ? "Esta tienda no participa en ninguna campaña actualmente. Asígnale participación primero." 
+                                        : "Guarda la tienda primero para poder asignarle participaciones y coordinadores."}
+                                </p>
+                            )}
+                        </section>
+
+                        <section className="form-section">
+                            <h3 className="form-section-title">Capitán de la tienda</h3>
                             
                             <div className="form-row">
-                                <div className="form-group">
-                                    <label htmlFor="coordinadorPrimaveraId">Coordinador Primavera</label>
-                                    <select id="coordinadorPrimaveraId" name="coordinadorPrimaveraId" className="campanya-select" value={formData.coordinadorPrimaveraId} onChange={handleChange} disabled={esViendo}>
-                                        <option value="">Sin asignar</option>
-                                        {listas.coordinadores.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="coordinadorGRId">Coordinador Gran Recogida</label>
-                                    <select id="coordinadorGRId" name="coordinadorGRId" className="campanya-select" value={formData.coordinadorGRId} onChange={handleChange} disabled={esViendo}>
-                                        <option value="">Sin asignar</option>
-                                        {listas.coordinadores.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <label htmlFor="capitanPrimaveraId">Capitán Primavera</label>
-                                    <select id="capitanPrimaveraId" name="capitanPrimaveraId" className="campanya-select" value={formData.capitanPrimaveraId} onChange={handleChange} disabled={esViendo}>
-                                        <option value="">Sin asignar</option>
-                                        {listas.capitanes.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="capitanGRId">Capitán Gran Recogida</label>
-                                    <select id="capitanGRId" name="capitanGRId" className="campanya-select" value={formData.capitanGRId} onChange={handleChange} disabled={esViendo}>
+                                <div className="form-group" style={{ flex: 1 }}>
+                                    <label htmlFor="capitanId">Capitán de Tienda</label>
+                                    <select id="capitanId" name="capitanId" className="campanya-select" value={formData.capitanId} onChange={handleChange} disabled={esViendo}>
                                         <option value="">Sin asignar</option>
                                         {listas.capitanes.map(u => <option key={u.id} value={u.id}>{u.nombre}</option>)}
                                     </select>

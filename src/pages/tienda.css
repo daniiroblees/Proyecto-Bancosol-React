@@ -1,34 +1,26 @@
 .page-wrapper {
     display: flex;
-    /* Quitamos el gap de aquí para que no deje un espacio vacío cuando el panel esté oculto */
     padding: 25px;
     min-height: calc(100vh - 80px);
     box-sizing: border-box;
 }
 
+.header-principal h1,
+.header-principal h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--primary-blue, #123c69);
+}
+
 .left-column {
-    flex: 1; /* Ocupará todo el espacio disponible automáticamente */
+    flex: 1; /* ocupa el espacio entero */
     display: flex;
     flex-direction: column;
     min-width: 0;
 }
 
-.right-column {
-    width: 0;
-    opacity: 0;
-    overflow: hidden;
-    /* Esta es la magia: una transición de 0.3 segundos muy fluida */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-/* Esta clase se la pondremos con JavaScript cuando queramos abrirlo */
-.right-column.open {
-    width: 400px;
-    margin-left: 25px; /* Separación con la tabla */
-    opacity: 1;
-}
-
-/* Encabezado sobre la tabla */
+/* encabezado de la tabla */
 .header-actions {
     display: flex;
     justify-content: space-between;
@@ -53,116 +45,14 @@
     text-transform: uppercase;
 }
 
-.side-panel {
-    width: 400px; /* El mismo ancho que la columna abierta */
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-    overflow-y: auto;
-}
-
-/* Colores de estado  */
-.status-open { background-color: #dcfce7; color: var(--status-green); }
-.status-closed { background-color: #fee2e2; color: var(--status-red); }
-
-/* Panel Lateral de Detalle/Edición */
-.tienda-detail-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-/* Cabecera del panel lateral */
-.detail-header {
-    border-bottom: 2px solid var(--bg-main);
-    padding-bottom: 15px;
-}
-
-.detail-header h2 {
-    color: var(--primary-blue);
-    font-size: 1.5rem;
-    margin: 0;
-}
-
-/* Formulario dentro del panel lateral */
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-group label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 0.9rem;
-    transition: border-color 0.2s;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 3px rgba(68, 114, 196, 0.1);
-}
-
-/* Grid de Horarios  */
-.hours-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    background-color: var(--bg-main);
-    padding: 20px;
-    border-radius: 8px;
-}
-
-/* Botones inferiores */
-.panel-footer {
-    margin-top: auto;
-    padding-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-/* Estilo para los iconos  */
-.tienda-meta {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.icon-circle {
-    width: 32px;
-    height: 32px;
-    background-color: var(--bg-main);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary-blue);
-}
-
 /* FILTRADO */
-/* Convertimos el formulario en un Grid de 2 columnas */
+
 #filtrado-tiendas {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* Dos columnas iguales */
-    gap: 10px 25px; /* 15px de espacio vertical, 25px horizontal */
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px 25px;
     width: 100%;
-    align-items: end; /* Alinea todo abajo por si los textos varían */
+    align-items: end;
     margin-top: 10px;
 }
 
@@ -180,30 +70,29 @@
 }
 
 .filtro-group select {
-    padding: 8px 12px; /* Unificado y limpio */
+    padding: 8px 12px;
     width: 100%;
     box-sizing: border-box;
 }
 
-/* Manejo del cuarto bloque (el del botón) */
+/* boton */
 .boton-container {
-    grid-column: 1; /* Le decimos que se quede estrictamente en la columna 1 */
-    justify-self: start; /* Se encoge y se pega a la izquierda en lugar de estirarse */
+    justify-self: end; /* lo pego a la derecha*/
     margin-top: 0px;
     margin-bottom: 10px;
 }
 
 .label-spacer {
-    height: 1.2rem; /* Simula la altura del label de los otros bloques para que el botón baje */
+    height: 1.2rem; /* lo alineo */
 }
 
 .btn-filtrar {
-    padding: 8px 24px; /* Un poco más de margen lateral para que sea fácil hacer clic */
+    padding: 8px 24px;
     font-size: 0.9rem;
     font-weight: 700; /* Letra un poco más gordita para que destaque */
     cursor: pointer;
-    background-color: transparent; /* Sin relleno */
-    color: var(--primary-blue, #1e3a8a); /* Texto azul oscuro */
+    background-color: transparent;
+    color: var(--primary-blue, #1e3a8a);
 
     border: 2px solid var(--primary-blue, #1e3a8a);
     border-radius: 6px;
@@ -211,17 +100,16 @@
     transition: all 0.2s ease;
 }
 
-/* Efecto al pasar el ratón para que el usuario sepa que es clickeable */
 .btn-filtrar:hover {
-    background-color: rgba(30, 58, 138, 0.05); /* Un fondo gris/azulado súper clarito */
-    transform: translateY(-1px); /* Se levanta un pixel, da un toque muy premium */
+    background-color: rgba(30, 58, 138, 0.05);
+    transform: translateY(-1px);
 }
 
 .header-principal {
     display: flex;
     flex-direction: row;
-    justify-content: space-between; /* Separo texto y botones a cada lado*/
-    align-items: center; /* Centro verticalmente*/
+    justify-content: space-between;
+    align-items: center;
     flex: 1fr 1fr;
 }
 
@@ -257,7 +145,7 @@
 /* Al hacer clic */
 .interact-tienda-btn:active {
     transform: translateY(0);
-    box-shadow: none !important;
+    box-shadow: none;
 }
 
 
@@ -271,7 +159,7 @@
 .editar-btn:hover {
     background-color: #d9eaff;
     color: #0b2d52;
-    box-shadow: 0 4px 10px rgba(18, 60, 105, 0.15); /* Sombra azulada */
+    box-shadow: 0 4px 10px rgba(18, 60, 105, 0.15);
 }
 
 /* VERDE */
@@ -282,9 +170,9 @@
 }
 
 .ver-btn:hover {
-    background-color: #bbf7d0; /* Verde un tono más oscuro */
+    background-color: #bbf7d0;
     color: #14532d;
-    box-shadow: 0 4px 10px rgba(22, 101, 52, 0.15); /* Sombra verdosa */
+    box-shadow: 0 4px 10px rgba(22, 101, 52, 0.15);
 }
 
 /* ROJO */
@@ -295,9 +183,9 @@
 }
 
 .eliminar-btn:hover {
-    background-color: #fecaca; /* Rojo un tono más oscuro */
+    background-color: #fecaca;
     color: #7f1d1d;
-    box-shadow: 0 4px 10px rgba(153, 27, 27, 0.15); /* Sombra rojiza */
+    box-shadow: 0 4px 10px rgba(153, 27, 27, 0.15);
 }
 
 .eliminar-btn{
@@ -306,4 +194,16 @@
 
 .eliminar-btn:hover{
     background-color: #fecaca;
+}
+
+
+.asignacion-btn {
+    background-color: #c4dbfb;
+    color: #001832;
+    border: 1px solid #c7dbf5;
+    text-wrap: nowrap;
+}
+
+.asignacion-btn:hover {
+    box-shadow: 0 4px 10px rgba(18, 60, 105, 0.15);
 }

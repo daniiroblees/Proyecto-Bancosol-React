@@ -56,22 +56,6 @@ export default function TiendasPage() {
         }
     };
 
-    const obtenerCoordinadores = (tiendasCampanya) => {
-        let coordPrimavera = "Sin asignar";
-        let coordGR = "Sin asignar";
-
-        if (tiendasCampanya && tiendasCampanya.length > 0) {
-            tiendasCampanya.forEach(c => {
-                // tipo de campaña (1 = GR, 2 = Primavera)
-                if (c.campanya?.tipoCampanya?.id === 2 && c.coordinador) {
-                    coordPrimavera = c.coordinador.nombre;
-                } else if (c.campanya?.tipoCampanya?.id === 1 && c.coordinador) {
-                    coordGR = c.coordinador.nombre;
-                }
-            });
-        }
-        return { coordPrimavera, coordGR };
-    };
 
     return (
         <main>
@@ -167,15 +151,10 @@ export default function TiendasPage() {
                                         <th rowSpan={2}>Zona</th>
                                         <th rowSpan={2}>Localidad</th>
                                         
-                                        <th colSpan={2} style={{ textAlign: "center" }}>Coordinadores</th>
-                                        
                                         <th rowSpan={2}></th>
                                         <th rowSpan={2}></th>
                                         <th rowSpan={2}></th>
-                                    </tr>
-                                    <tr>
-                                        <th>Primavera</th>
-                                        <th>Gran Recogida</th>
+                                        <th rowSpan={2}></th>
                                     </tr>
                                 </thead>
 
@@ -190,9 +169,6 @@ export default function TiendasPage() {
                                         </tr>
                                     ) : (
                                         tiendas.map(tienda => {
-                                            // Extraemos los coordinadores usando la función auxiliar
-                                            const { coordPrimavera, coordGR } = obtenerCoordinadores(tienda.tiendasCampanya);
-
                                             return (
                                                 <tr key={tienda.id} data-id={tienda.id}>
                                                     <td className="font-medium text-blue">{tienda.nombre}</td>
@@ -201,18 +177,6 @@ export default function TiendasPage() {
                                                     <td className="small-td">{tienda.domicilio}</td>
                                                     <td>{tienda.localidad?.municipio?.zona?.nombre}</td>
                                                     <td>{tienda.localidad?.nombre}</td>
-
-                                                    <td>
-                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "5px" }}>
-                                                            <span className="small-td">{coordPrimavera}</span>
-                                                        </div>
-                                                    </td>
-
-                                                    <td>
-                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "5px" }}>
-                                                            <span className="small-td">{coordGR}</span>
-                                                        </div>
-                                                    </td>
 
                                                     <td>
                                                         <Link to={`/tiendas/crearTienda?id=${tienda.id}`} className="interact-tienda-btn editar-btn">
@@ -231,6 +195,11 @@ export default function TiendasPage() {
                                                     <td>
                                                         <Link to={`/tiendas/verTienda?id=${tienda.id}`} className="interact-tienda-btn ver-btn">
                                                             Ver
+                                                        </Link>
+                                                    </td>
+                                                    <td> 
+                                                        <Link to={`/tiendas/verTienda?id=${tienda.id}`} className="interact-tienda-btn asignacion-btn"> {/* Falta ASIGNAR PARTICIPACION REDIRIGIR */}
+                                                            Asignar Participacion
                                                         </Link>
                                                     </td>
                                                 </tr>

@@ -72,17 +72,22 @@ export const filtrarTiendas = async (cadenaId, localidadId, zonaId) => {
 };
 
 // POST /api/tienda/guardar -
-export const guardarTienda = async (tiendaData) => {
+export const guardarTienda = async (dataTienda) => {
     try {
         const response = await fetch(`${API_BASE}/tienda/guardar`, {
             method: 'POST',
             headers: getAuthHeaders(),
-            body: JSON.stringify(tiendaData) // Mandamos el objeto que casa con tu record TiendaRequest
+            body: JSON.stringify(dataTienda) // Para el record
         });
-        await handleResponse(response);
-        return true;
+
+        if (response.ok) {
+            return true;
+        } else {
+            console.error("Error en la respuesta del servidor");
+            return false;
+        }
     } catch (error) {
-        console.error("Error al guardar la tienda:", error);
+        console.error("Error de red al guardar la tienda:", error);
         return false;
     }
 };
@@ -198,6 +203,25 @@ export const getCapitanes = async () => {
         return await handleResponse(response);
     } catch (error) {
         console.error("Error cargando capitanes:", error);
+        return [];
+    }
+};
+
+export const getParticipacionesTienda = async (idTienda) => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/tienda/asignarParticipacion/${idTienda}`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        
+        if (response.ok) {
+            return await response.json();
+        } else {
+            console.error("Error al obtener las participaciones");
+            return [];
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
         return [];
     }
 };
