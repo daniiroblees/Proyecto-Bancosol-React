@@ -1,0 +1,106 @@
+/* =========================================
+   Estilos para Asignar Participación
+   ========================================= */
+
+/* Contenedor principal ensanchado */
+.participacion-wrapper {
+    max-width: 1100px;
+}
+
+/* Tabla de participación */
+.participacion-table th {
+    text-align: center;
+}
+
+.participacion-table td {
+    vertical-align: top;
+    padding: 20px;
+}
+
+/* Lista vertical de opciones (Radios) */
+.radio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Opción "No participa" en negrita */
+.default-option-text {
+    font-weight: 600;
+}
+
+/* Estado visual para opción seleccionada */
+.option-card.selected {
+    border-color: var(--accent-blue);
+    background-color: #f0f7ff;
+}
+
+/* =========================================
+   Tarjeta de Información de la Tienda
+   ========================================= */
+
+.tienda-info-box {
+    margin-bottom: 25px;
+    padding: 20px;
+}
+
+.tienda-info-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tienda-info-icon {
+    background-color: #eaf2ff;
+    color: var(--primary-blue);
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.tienda-info-title {
+    margin: 0;
+    color: var(--primary-blue);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.tienda-info-details {
+    display: flex;
+    gap: 40px;
+    margin-left: 60px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.tienda-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.tienda-info-item-icon {
+    color: var(--accent-blue);
+    font-size: 1.2rem;
+}
+
+/*
+ =========================================
+  Botones de Acción
+ =========================================
+ */
+
+.form-actions-no-border {
+    border-top: none;
+}
+
+.btn-save-participacion {
+    font-size: 15px;
+}
+

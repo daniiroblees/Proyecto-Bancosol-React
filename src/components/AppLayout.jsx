@@ -1,7 +1,8 @@
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ProveedorAuten } from '../auth/proveedorAuten';
-import Navbar from './Navbar';
 import RutaProtegida from './RutaProtegida'; 
+import Navbar from './Navbar'; 
+
 import LoginPage from '../pages/AuthPage';
 import TiendaPage from '../pages/TiendaPage';
 import CrearTienda from '../pages/CrearTiendaPage';
@@ -9,32 +10,35 @@ import CoordinadoresPage from '../pages/CoordinadoresPage';
 import FormularioCoordinador from '../pages/FormularioCoordinador';
 import AsignacionTurnoPage from '../pages/AsignacionTurnoPage';
 import CrearTurnoPage from '../pages/CrearTurnoPage';
+import AsignarParticipacion from '../pages/AsignarParticipacionPage';
 
 export default function AppLayout() {
-  const location = useLocation();
-  const esPantallaLogin = location.pathname === '/login';
-
   return (
     <ProveedorAuten>
-      {!esPantallaLogin && <Navbar />}
-
-      <div className="page-content" style={{ padding: esPantallaLogin ? '0px' : '20px' }}>
         <Routes>
+          
+          {/* Rutas Públicas */}
           <Route path="/" element={<Navigate to="/tiendas" replace />} />
           <Route path="/login" element={<LoginPage />} />
 
-          <Route path="/tiendas" element={<RutaProtegida><TiendaPage /></RutaProtegida>} />
-          <Route path="/tiendas/crearTienda" element={<RutaProtegida><CrearTienda /></RutaProtegida>} />
-          <Route path="/tiendas/verTienda" element={<RutaProtegida><CrearTienda /></RutaProtegida>} />
-          <Route path="/coordinadores" element={<RutaProtegida><CoordinadoresPage /></RutaProtegida>} />
-          <Route path="/coordinadores/crearCoordinador" element={<RutaProtegida><FormularioCoordinador /></RutaProtegida>} />
-          <Route path="/coordinadores/editarCoordinador" element={<RutaProtegida><FormularioCoordinador /></RutaProtegida>} />
-		  
-		  <Route path="/asignacion_turno" element={<RutaProtegida><AsignacionTurnoPage /></RutaProtegida>} />
-          <Route path="/turnos/crearTurno" element={<RutaProtegida><CrearTurnoPage /></RutaProtegida>} />
+          {/* Rutas Protegidas y con Cabecera */}
+          <Route element={<RutaProtegida />}>
+            <Route element={<Navbar />}>
+              
+              <Route path="/tiendas" element={<TiendaPage />} />
+              <Route path="/tiendas/crearTienda" element={<CrearTienda />} />
+              <Route path="/tiendas/verTienda" element={<CrearTienda />} />
+              <Route path="/tiendas/asignarParticipacion" element={<AsignarParticipacion />} />
+
+              <Route path="/coordinadores" element={<CoordinadoresPage />} />
+          
+              <Route path="/asignacion_turno" element={<AsignacionTurnoPage />} />
+              <Route path="/turnos/crearTurno" element={<CrearTurnoPage />} />
+
+            </Route>
+          </Route>
 
         </Routes>
-      </div>
     </ProveedorAuten>
   );
 }
