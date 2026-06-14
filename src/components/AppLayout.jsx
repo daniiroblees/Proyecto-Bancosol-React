@@ -12,6 +12,10 @@ import AsignacionTurnoPage from '../pages/AsignacionTurnoPage';
 import CrearTurnoPage from '../pages/CrearTurnoPage';
 import AsignarParticipacion from '../pages/AsignarParticipacionPage';
 
+import ColaboradoresPage from '../pages/ColaboradoresPage';
+import FormularioColaboradorPage from '../pages/FormularioColaboradorPage';
+import FormularioContactoPage from '../pages/FormularioContactoPage';
+
 export default function AppLayout() {
   return (
     <ProveedorAuten>
@@ -36,6 +40,13 @@ export default function AppLayout() {
           
               <Route path="/asignacion_turno" element={<AsignacionTurnoPage />} />
               <Route path="/turnos/crearTurno" element={<CrearTurnoPage />} />
+
+              <Route path="/colaboradores" element={<RutaProtegida><ColaboradoresPage /></RutaProtegida>} />
+              <Route path="/colaboradores/crear" element={<RutaProtegida><FormularioColaboradorPage /></RutaProtegida>} />
+              <Route path="/colaboradores/editar/:id" element={<RutaProtegida><FormularioColaboradorPage /></RutaProtegida>} />
+              <Route path="/colaboradores/:idColaborador/contacto/crear" element={<RutaProtegida><FormularioContactoPage /></RutaProtegida>} />
+              <Route path="/colaboradores/:idColaborador/contacto/editar/:idContacto" element={<RutaProtegida><FormularioContactoPage /></RutaProtegida>} />
+
 
             </Route>
           </Route>
