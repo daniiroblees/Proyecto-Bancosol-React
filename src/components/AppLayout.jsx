@@ -33,9 +33,7 @@ export default function AppLayout() {
               {/* ACCESO GENERAL, sin rol minimo */}
               
               <Route path="/tiendas" element={<TiendaPage />} />
-              <Route path="/tiendas/crearTienda" element={<CrearTienda />} />
               <Route path="/tiendas/verTienda" element={<CrearTienda />} />
-              <Route path="/tiendas/asignarParticipacion" element={<AsignarParticipacion />} />
 
               <Route path="/coordinadores" element={<CoordinadoresPage />} />
 			        <Route path="/coordinadores/crearCoordinador" element={<FormularioCoordinador />} />
@@ -43,15 +41,21 @@ export default function AppLayout() {
           
               <Route path="/asignacion_turno" element={<AsignacionTurnoPage />} />
 
-              <Route path="/colaboradores" element={<RutaProtegida><ColaboradoresPage /></RutaProtegida>} />
-              <Route path="/colaboradores/crear" element={<RutaProtegida><FormularioColaboradorPage /></RutaProtegida>} />
-              <Route path="/colaboradores/editar/:id" element={<RutaProtegida><FormularioColaboradorPage /></RutaProtegida>} />
-              <Route path="/colaboradores/:idColaborador/contacto/crear" element={<RutaProtegida><FormularioContactoPage /></RutaProtegida>} />
-              <Route path="/colaboradores/:idColaborador/contacto/editar/:idContacto" element={<RutaProtegida><FormularioContactoPage /></RutaProtegida>} />
 
-              {/*  ACCESO ROLE_ADMIN o ROLE_COORD */}
+              {/*  ACCESO ROLE ADMIN o ROLE COORD */}
               <Route element={<RolRequerido roles={['ROLE_ADMIN', 'ROLE_COORD']} />}>
                 <Route path="/turnos/crearTurno" element={<CrearTurnoPage />} />
+                <Route path="/colaboradores" element={<RutaProtegida><ColaboradoresPage /></RutaProtegida>} />
+                <Route path="/colaboradores/crear" element={<RutaProtegida><FormularioColaboradorPage /></RutaProtegida>} />
+                <Route path="/colaboradores/editar/:id" element={<RutaProtegida><FormularioColaboradorPage /></RutaProtegida>} />
+                <Route path="/colaboradores/:idColaborador/contacto/crear" element={<RutaProtegida><FormularioContactoPage /></RutaProtegida>} />
+                <Route path="/colaboradores/:idColaborador/contacto/editar/:idContacto" element={<RutaProtegida><FormularioContactoPage /></RutaProtegida>} />
+              </Route>
+
+              {/* ACCESO ROLE ADMIN  */}
+              <Route element={<RolRequerido roles={['ROLE_ADMIN']} />}>
+                <Route path="/tiendas/crearTienda" element={<CrearTienda />} />
+                <Route path="/tiendas/asignarParticipacion" element={<AsignarParticipacion />} />
               </Route>
 
             </Route>

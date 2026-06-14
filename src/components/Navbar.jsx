@@ -54,7 +54,7 @@ export default function Navbar() {
                 
                 <nav className="bottom-navbar">
                     <ul className="nav-menu">
-                        <li className={getNavClass('/campanyas', true)}>
+                        <li className={getNavClass('/campanyas', true, false)}>
                             <Link to="#" className="nav-link">
                                 <i className="ri-megaphone-line"></i>
                                 <span>Gestión de Campañas</span>
@@ -68,14 +68,14 @@ export default function Navbar() {
                             </Link>
                         </li>
                         
-                        <li className={checkActive('/colaboradores')}>
+                        <li className={getNavClass('/colaboradores', false, true)}>
                             <Link to="/colaboradores" className="nav-link">
                                 <i className="ri-user-heart-line"></i>
                                 <span>Colaboradores</span>
                             </Link>
                         </li>
                         
-                        <li className={getNavClass('/coordinadores', true)}>
+                        <li className={getNavClass('/coordinadores', true, false)}>
                             <Link to="/coordinadores" className="nav-link">
                                 <i className="ri-team-line"></i>
                                 <span>Coordinadores</span>

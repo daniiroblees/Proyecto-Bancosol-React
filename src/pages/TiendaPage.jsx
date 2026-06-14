@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getTiendas, getCadenas, getZonas, getLocalidades, eliminarTienda, filtrarTiendas } from '../services/tiendaService';
+import { useAuth } from '../auth/useAuthHook';
+
 import '../styles/global.css'
 import '../styles/tienda.css';
 
@@ -16,6 +18,12 @@ export default function TiendasPage() {
     const [cadenaMarcada, setCadenaMarcada] = useState("");
     const [zonaMarcada, setZonaMarcada] = useState("");
     const [localidadMarcada, setLocalidadMarcada] = useState("");
+
+    //gestionar roles
+    const { usuario } = useAuth();
+    const rol = usuario?.rol?.startsWith('ROLE_') ? usuario.rol : `ROLE_${usuario?.rol}`;
+    const puedeEditar = rol === 'ROLE_ADMIN';
+    
 
     // carga inicial de datos
     useEffect(() => {
@@ -152,9 +160,13 @@ export default function TiendasPage() {
                                         <th>Localidad</th>
                                         
                                         <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        {puedeEditar && (
+                                            <>
+                                                <th></th> 
+                                                <th></th> 
+                                                <th></th> 
+                                            </>
+                                        )}
                                     </tr>
                                 </thead>
 
@@ -179,29 +191,34 @@ export default function TiendasPage() {
                                                     <td>{tienda.localidad?.nombre}</td>
 
                                                     <td>
-                                                        <Link to={`/tiendas/crearTienda?id=${tienda.id}`} className="interact-tienda-btn editar-btn">
-                                                            Editar
-                                                        </Link>
-                                                    </td>
-                                                    <td>
-                                                        <button 
-                                                            onClick={() => handleEliminar(tienda.id, tienda.nombre)}
-                                                            className="interact-tienda-btn eliminar-btn"
-                                                            style={{ border: 'none', cursor: 'pointer' }}
-                                                        >
-                                                            Eliminar
-                                                        </button>
-                                                    </td>
-                                                    <td>
                                                         <Link to={`/tiendas/verTienda?id=${tienda.id}`} className="interact-tienda-btn ver-btn">
                                                             Ver
                                                         </Link>
                                                     </td>
-                                                    <td> 
-                                                        <Link to={`/tiendas/asignarParticipacion?id=${tienda.id}`} className="interact-tienda-btn asignacion-btn"> 
-                                                            Asignar Participacion
-                                                        </Link>
-                                                    </td>
+
+                                                    {puedeEditar && (
+                                                        <>
+                                                            <td>
+                                                                <Link to={`/tiendas/crearTienda?id=${tienda.id}`} className="interact-tienda-btn editar-btn">
+                                                                    Editar
+                                                                </Link>
+                                                            </td>
+                                                            <td>
+                                                                <button 
+                                                                    onClick={() => handleEliminar(tienda.id, tienda.nombre)}
+                                                                    className="interact-tienda-btn eliminar-btn"
+                                                                    style={{ border: 'none', cursor: 'pointer' }}
+                                                                >
+                                                                    Eliminar
+                                                                </button>
+                                                            </td>
+                                                            <td> 
+                                                                <Link to={`/tiendas/asignarParticipacion?id=${tienda.id}`} className="interact-tienda-btn asignacion-btn"> 
+                                                                    Asignar Participacion
+                                                                </Link>
+                                                            </td>
+                                                        </>
+                                                    )}
                                                 </tr>
                                             );
                                         })

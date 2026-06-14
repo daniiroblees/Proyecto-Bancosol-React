@@ -8,8 +8,13 @@ export default function RolRequerido({ rolesPermitidos }) {
         return <Navigate to="/login" replace />;
     }
 
-    if (!rolesPermitidos.includes(usuario.rol)) {
-        console.log(`Acceso denegado. Rol actual: ${usuario.rol}, Requerido: ${rolesPermitidos}`);
+    const rolNormalizado = usuario.rol?.startsWith('ROLE_') 
+        ? usuario.rol 
+        : `ROLE_${usuario.rol}`;
+
+
+    if (!rolesPermitidos.includes(rolNormalizado)) {
+        console.log(`Acceso denegado. Rol actual: ${rolNormalizado}, Requerido: ${rolesPermitidos}`);
 
         return <Navigate to="/tiendas" replace />; 
     }
