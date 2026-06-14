@@ -1,0 +1,99 @@
+/* Contenedor principal de la vista Crear Turno */
+.crear-turno-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.form-turno {
+    flex: 1;
+    max-width: 50%;
+    background-color: #ffffff;
+    /* Eliminamos el margin: 30px que lo separaba extrañamente */
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.turno-info {
+    background: #e9ecef;
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.turno-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-group-row .form-group {
+    flex: 1;
+}
+
+.form-turno label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #4a5568;
+    font-size: 0.9rem;
+}
+
+.form-turno input[type="number"],
+.form-turno input[type="time"],
+.form-turno select,
+.form-turno textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #a0aec0;
+    border-radius: 5px;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    background-color: #fdfdfd;
+}
+
+.form-turno input:focus,
+.form-turno select:focus,
+.form-turno textarea:focus {
+    outline: none;
+    border-color: #4472c4;
+    box-shadow: 0 0 0 3px rgba(68, 114, 196, 0.2);
+    background-color: #ffffff;
+}
+
+.btn-submit {
+    background-color: #4472c4;
+    color: white;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1.05rem;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #203c5e;
+}

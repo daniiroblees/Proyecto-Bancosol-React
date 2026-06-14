@@ -5,6 +5,8 @@ import RutaProtegida from './RutaProtegida';
 import LoginPage from '../pages/AuthPage';
 import TiendaPage from '../pages/TiendaPage';
 import CrearTienda from '../pages/CrearTiendaPage';
+import AsignacionTurnoPage from '../pages/AsignacionTurnoPage';
+import CrearTurnoPage from '../pages/CrearTurnoPage';
 
 export default function AppLayout() {
   const location = useLocation();
@@ -22,6 +24,9 @@ export default function AppLayout() {
           <Route path="/tiendas" element={<RutaProtegida><TiendaPage /></RutaProtegida>} />
           <Route path="/tiendas/crearTienda" element={<RutaProtegida><CrearTienda /></RutaProtegida>} />
           <Route path="/tiendas/verTienda" element={<RutaProtegida><CrearTienda /></RutaProtegida>} />
+		  
+		  <Route path="/asignacion_turno" element={<RutaProtegida><AsignacionTurnoPage /></RutaProtegida>} />
+          <Route path="/turnos/crearTurno" element={<RutaProtegida><CrearTurnoPage /></RutaProtegida>} />
 
         </Routes>
       </div>
