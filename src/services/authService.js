@@ -1,8 +1,10 @@
-const API_URL = 'http://localhost:8080/api/auth/';
+import { BASE_URL } from '../config';
+
+const API_URL = `${BASE_URL}/auth`;
 
 export const login = async (username, password) => {
     try {
-        const response = await fetch(`${API_URL}login`, {
+        const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }) 
@@ -11,7 +13,7 @@ export const login = async (username, password) => {
         if (response.ok) {
             const data = await response.json();
             
-            console.log("Respuesta de Spring Boot:", data);
+            console.log("Respuesta del servidor:", data);
             if (data.token) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('usuario_nombre', data.usuario.nombre);
@@ -33,6 +35,7 @@ export const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario_nombre');
     localStorage.removeItem('usuario_rol');
+    
     window.location.href = '/'; 
 };
 
