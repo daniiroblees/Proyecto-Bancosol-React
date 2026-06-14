@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
-import './assets/global.css';
+import './styles/global.css';
 import { isAuthenticated } from './services/authService';
 
 import AppLayout from './components/AppLayout';

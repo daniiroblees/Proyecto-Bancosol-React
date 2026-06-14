@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import './navbar.css';
+import '../styles/navbar.css';
 import logo from '/src/assets/LOGO_BANCOSOL.png';
 
 import { logout } from '../services/authService';

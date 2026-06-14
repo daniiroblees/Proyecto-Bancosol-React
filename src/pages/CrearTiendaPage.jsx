@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { buscarTienda, guardarTienda, getCadenas, getZonas, getLocalidades, getCoordinadores, getCapitanes, getMunicipios, getDistritos, getParticipacionesTienda } from '../services/tiendaService';
-import '../assets/global.css';
-import '../assets/form_crear.css';
+import '../styles/global.css';
+import '../styles/form_crear.css';
 
 export default function CrearTienda() {
     const navigate = useNavigate();
