@@ -144,28 +144,28 @@ export default function TiendasPage() {
                             <table className="modernTable">
                                 <thead>
                                     <tr>
-                                        <th rowSpan={2}>Tienda</th>
-                                        <th rowSpan={2}>Cadena</th>
-                                        <th rowSpan={2}>Lineales</th>
-                                        <th rowSpan={2}>Domicilio</th>
-                                        <th rowSpan={2}>Zona</th>
-                                        <th rowSpan={2}>Localidad</th>
+                                        <th>Tienda</th>
+                                        <th>Cadena</th>
+                                        <th>Lineales</th>
+                                        <th>Domicilio</th>
+                                        <th>Zona</th>
+                                        <th>Localidad</th>
                                         
-                                        <th rowSpan={2}></th>
-                                        <th rowSpan={2}></th>
-                                        <th rowSpan={2}></th>
-                                        <th rowSpan={2}></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
 
                                 <tbody id="table-body-tiendas">
                                     {cargando ? (
                                         <tr>
-                                            <td colSpan="11" style={{ textAlign: 'center', padding: '20px' }}>Cargando tiendas...</td>
+                                            <td colSpan="10" style={{ textAlign: 'center', padding: '20px' }}>Cargando tiendas...</td>
                                         </tr>
                                     ) : tiendas.length === 0 ? (
                                         <tr>
-                                            <td colSpan="11" style={{ textAlign: 'center', padding: '20px' }}>No hay tiendas registradas o que coincidan con los filtros.</td>
+                                            <td colSpan="10" style={{ textAlign: 'center', padding: '20px' }}>No hay tiendas registradas o que coincidan con los filtros.</td>
                                         </tr>
                                     ) : (
                                         tiendas.map(tienda => {
@@ -198,7 +198,7 @@ export default function TiendasPage() {
                                                         </Link>
                                                     </td>
                                                     <td> 
-                                                        <Link to={`/tiendas/verTienda?id=${tienda.id}`} className="interact-tienda-btn asignacion-btn"> {/* Falta ASIGNAR PARTICIPACION REDIRIGIR */}
+                                                        <Link to={`/tiendas/asignarParticipacion?id=${tienda.id}`} className="interact-tienda-btn asignacion-btn"> 
                                                             Asignar Participacion
                                                         </Link>
                                                     </td>

@@ -1,127 +1,127 @@
-@import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap');
 
+/* Paleta de colores */
 :root {
-  --primary-blue: #003366;
-  --accent-blue: #4472c4;
-  --bg-main: #f4f7fb;
-  --bg-white: #ffffff;
+    --primary-blue: #003366; /* Azul oscuro para cabeceras de tabla y botones */
+    --accent-blue: #4472c4;  /* Azul secundario */
+    --bg-main: #f4f7fb;      /* Color de fondo de la web */
+    --bg-white: #ffffff;     /* Fondo de las tarjetas */
 
-  --text-dark: #1e293b;
-  --text-muted: #64748b;
-  --border-color: #e2e8f0;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
 
-  --status-green: #10b981;
-  --status-red: #ef4444;
-  --status-yellow: #f59e0b;
+    /* Colores de estado */
+    --status-green: #10b981;
+    --status-red: #ef4444;
+    --status-yellow: #f59e0b;
 }
 
 body {
-  font-family: "Public Sans", sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-main);
-  color: var(--text-dark);
+    font-family: 'Public Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
 }
 
+/* Estilos de Tarjeta */
 .card {
-  background-color: var(--bg-white);
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    background-color: var(--bg-white);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
+/* Botones estándar */
 .btn-primary {
-  background-color: var(--primary-blue);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-family: inherit;
-  font-size: 1rem;
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .btn-primary:hover {
-  background-color: #002244;
+    background-color: #002244;
 }
 
 .btn-outline {
-  background-color: transparent;
-  color: var(--primary-blue);
-  border: 1px solid var(--primary-blue);
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-  font-size: 1rem;
+    background-color: transparent;
+    color: var(--primary-blue);
+    border: 1px solid var(--primary-blue);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-outline:disabled {
+    color: #a0a0a0; /* Texto gris claro */
+    border-color: #d1d5db; /* Borde gris muy suave */
+    background-color: #f3f4f6; /* Fondo gris casi blanco */
+    cursor: not-allowed; /* Cambia el ratón al icono de prohibido/bloqueado */
+    transform: none; /* Evita que haga el efecto de levantarse si pasas el ratón */
 }
 
 .btn-outline:hover {
-  background-color: var(--bg-main);
+    background-color: var(--bg-main);
 }
 
 .text-mutex {
-  color: var(--text-muted);
+    color: var(--text-muted);
 }
 
-/* =========================================
-   ESTILOS GENERALES DE TABLAS (.modernTable)
-   ========================================= */
 .table-container {
-  overflow-y: auto;
-  padding: 0;
+    overflow-y: auto;
+    padding: 0;
 }
 
 .modernTable {
-  border-collapse: collapse;
-  text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
 }
 
 .modernTable thead {
-  background-color: var(--primary-blue);
-  color: white;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+    background-color: var(--primary-blue);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .modernTable th,
 .modernTable td {
-  padding: 14px 15px;
-  border-bottom: 1px solid var(--border-color);
+    padding: 14px 15px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .modernTable th {
-  font-weight: 500;
-  font-size: 0.85rem;
+    font-weight: 500;
+    font-size: 0.85rem;
 }
 
 .modernTable tbody tr {
-  transition: background 0.2s;
-  cursor: pointer;
-  background-color: var(--bg-white);
+    transition: background 0.2s;
+    cursor: pointer;
+    background-color: var(--bg-white);
 }
 
 .modernTable tbody tr:hover {
-  background-color: var(--bg-main);
+    background-color: var(--bg-main);
 }
 
 .modernTable tbody tr.selected {
-  background-color: #f0f7ff;
-  border-left: 4px solid var(--primary-blue);
+    background-color: #f0f7ff;
+    border-left: 4px solid var(--primary-blue);
 }
 
-.font-medium {
-  font-weight: 500;
-}
-.text-blue {
-  color: var(--accent-blue);
-}
-.small-td {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
+/* Clases de utilidad para textos */
+.font-medium { font-weight: 500; }
+.text-blue { color: var(--accent-blue); }
+.small-td { font-size: 0.8rem; color: var(--text-muted); }

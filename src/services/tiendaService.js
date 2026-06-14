@@ -198,7 +198,7 @@ export const getCapitanes = async () => {
 
 export const getParticipacionesTienda = async (idTienda) => {
     try {
-        const response = await fetch(`${BASE_URL}/${idTienda}`, {
+        const response = await fetch(`${BASE_URL}/tienda/asignarParticipacion/${idTienda}`, {
             method: 'GET',
             headers: getAuthHeaders()
         });
@@ -211,6 +211,63 @@ export const getParticipacionesTienda = async (idTienda) => {
         }
     } catch (error) {
         console.error("Error de red:", error);
+        return [];
+    }
+};
+
+export const guardarParticipacion = async (idTienda, selecciones) => {
+    try {
+        const params = new URLSearchParams();
+        params.append('idTienda', idTienda);
+        
+        Object.keys(selecciones).forEach(tipoId => {
+            params.append(`tipo_campanya_${tipoId}`, selecciones[tipoId]);
+        });
+
+        const response = await fetch(`${BASE_URL}/tienda/guardarParticipacion`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${getToken()}`, 
+                'Content-Type': 'application/x-www-form-urlencoded', 
+            },
+            body: params
+        });
+
+        if (response.ok) {
+            return true;
+        } else {
+             console.error("Error del servidor al guardar participaciones");
+             return false;
+        }
+    } catch (error) {
+        console.error("Error al guardar participaciones:", error);
+        return false;
+    }
+};
+
+
+export const getTiposCampanyaParaTienda = async (idTienda) => {
+    try {
+        const response = await fetch(`${BASE_URL}/tipoCampanyas/participantes/${idTienda}`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("Error cargando tipos de campaña:", error);
+        return [];
+    }
+};
+
+export const getCampanyasParaTienda = async (idTienda) => {
+    try {
+        const response = await fetch(`${BASE_URL}/campanyas/participantes/${idTienda}`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("Error cargando campañas:", error);
         return [];
     }
 };
