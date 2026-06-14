@@ -1,17 +1,17 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { ProveedorAuten } from '../auth/proveedorAuten';
 import Navbar from './Navbar';
 import RutaProtegida from './RutaProtegida'; 
 import LoginPage from '../pages/AuthPage';
 import TiendaPage from '../pages/TiendaPage';
 import CrearTienda from '../pages/CrearTiendaPage';
+import CoordinadoresPage from '../pages/CoordinadoresPage';
 
 export default function AppLayout() {
   const location = useLocation();
   const esPantallaLogin = location.pathname === '/login';
 
   return (
-    <ProveedorAuten>
+    <>
       {!esPantallaLogin && <Navbar />}
 
       <div className="page-content" style={{ padding: esPantallaLogin ? '0px' : '20px' }}>
@@ -22,9 +22,10 @@ export default function AppLayout() {
           <Route path="/tiendas" element={<RutaProtegida><TiendaPage /></RutaProtegida>} />
           <Route path="/tiendas/crearTienda" element={<RutaProtegida><CrearTienda /></RutaProtegida>} />
           <Route path="/tiendas/verTienda" element={<RutaProtegida><CrearTienda /></RutaProtegida>} />
+          <Route path="/coordinadores" element={<RutaProtegida><CoordinadoresPage /></RutaProtegida>} />
 
         </Routes>
       </div>
-    </ProveedorAuten>
+    </>
   );
 }
