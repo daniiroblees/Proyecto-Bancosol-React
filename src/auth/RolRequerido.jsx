@@ -1,24 +1,26 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from './useAuthHook'; 
 
-export default function RolRequerido({ rolesPermitidos }) {
+export default function RolRequerido({ roles }) {
     const { usuario } = useAuth();
     
     if (!usuario) {
         return <Navigate to="/login" replace />;
     }
 
+    if (!roles || roles.length === 0) {
+        return <Outlet />;
+    }
+
+    // Normalizamos el rol del usuario
     const rolNormalizado = usuario.rol?.startsWith('ROLE_') 
         ? usuario.rol 
         : `ROLE_${usuario.rol}`;
 
-
-    if (!rolesPermitidos.includes(rolNormalizado)) {
-        console.log(`Acceso denegado. Rol actual: ${rolNormalizado}, Requerido: ${rolesPermitidos}`);
-
+    if (!roles.includes(rolNormalizado)) {
+        console.log(`Acceso denegado. Rol: ${rolNormalizado}, Requerido: ${roles}`);
         return <Navigate to="/tiendas" replace />; 
     }
 
-    // Si tiene permiso, renderiza las páginas hijas
     return <Outlet />;
 }
