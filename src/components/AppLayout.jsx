@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProveedorAuten } from '../auth/proveedorAuten';
 import RutaProtegida from './RutaProtegida'; 
 import Navbar from './Navbar'; 
@@ -36,6 +36,8 @@ export default function AppLayout() {
               <Route path="/tiendas/verTienda" element={<CrearTienda />} />
 
               <Route path="/coordinadores" element={<CoordinadoresPage />} />
+              <Route path="/coordinadores/crearCoordinador" element={<FormularioCoordinador />} />
+              <Route path="/coordinadores/editarCoordinador" element={<FormularioCoordinador />} />
 			        <Route path="/coordinadores/crearCoordinador" element={<FormularioCoordinador />} />
           	  <Route path="/coordinadores/editarCoordinador" element={<FormularioCoordinador />} />
           

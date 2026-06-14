@@ -32,11 +32,11 @@ export default function FormularioCoordinador() {
 
     useEffect(() => {
         const cargarDatos = async () => {
-            const entidades = await getEntidades();
-            setEntidades(entidades);
+            const entidadesData = await getEntidades();
+            setEntidades(Array.isArray(entidadesData) ? entidadesData : []);
 
-            const zonas = await getZonas();
-            setZonas(zonas);
+            const zonasData = await getZonas();
+            setZonas(Array.isArray(zonasData) ? zonasData : []);
 
             if (esEdicion) {
                 const coordinador = await buscarCoordinador(idCoordinador);
@@ -48,8 +48,8 @@ export default function FormularioCoordinador() {
                         contrasenya: '', //no la muestro
                         telefono: coordinador.telefono || '',
                         email: coordinador.email || '',
-                        idEntidad: coordinador.idEntidad || '',
-                        idZona: coordinador.idZonaAsignada || ''
+                        idEntidad: coordinador.idEntidad || coordinador.entidad?.id || '',
+                        idZona: coordinador.idZonaAsignada || coordinador.idZona || coordinador.zonaAsignada?.id || coordinador.zona?.id || ''
                     });
                 }
             }
