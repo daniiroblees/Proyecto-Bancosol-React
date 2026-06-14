@@ -1,6 +1,5 @@
 import { getToken, logout } from './authService';
-
-const API_BASE = 'http://localhost:8080/api';
+import { BASE_URL } from '../config';
 
 const getAuthHeaders = () => {
     return {
@@ -26,7 +25,7 @@ const handleResponse = async (response) => {
 //Listar todos
 export const getCoordinadores = async () => {
     try {
-        const response = await fetch(`${API_BASE}/usuarios/coordinadores`, { 
+        const response = await fetch(`${BASE_URL}/usuarios/coordinadores`, { 
             method: 'GET',
             headers: getAuthHeaders()
         });
@@ -40,7 +39,7 @@ export const getCoordinadores = async () => {
 //OBTENER COORDINADOR DEL ID
 export const buscarCoordinador = async (id) => {
     try {
-        const response = await fetch(`${API_BASE}/usuarios/coordinadores/${id}`, {
+        const response = await fetch(`${BASE_URL}/usuarios/coordinadores/${id}`, {
             method: 'GET',
             headers: getAuthHeaders()
         });
@@ -54,7 +53,7 @@ export const buscarCoordinador = async (id) => {
 // ENVIAR COORDINADOR AL BACKEND PARA GUARDAR
 export const guardarCoordinador = async (coordinadorData) => {
     try {
-        const response = await fetch(`${API_BASE}/usuarios/coordinadores/guardar`, {
+        const response = await fetch(`${BASE_URL}/usuarios/coordinadores/guardar`, {
             method: 'POST',
             headers: getAuthHeaders(),
             body: JSON.stringify(coordinadorData)
@@ -70,7 +69,7 @@ export const guardarCoordinador = async (coordinadorData) => {
 // SELECCIOANR QUE COORDINADOR ELIMINAR DE LA BASE DE DATOS
 export const eliminarCoordinadores = async (idsCoordinadores) => {
     try {
-        const response = await fetch(`${API_BASE}/usuarios/coordinadores`, {
+        const response = await fetch(`${BASE_URL}/usuarios/coordinadores`, {
             method: 'DELETE',
             headers: getAuthHeaders(),
             body: JSON.stringify(idsCoordinadores)
@@ -80,5 +79,33 @@ export const eliminarCoordinadores = async (idsCoordinadores) => {
     } catch (error) {
         console.error("Error eliminando coordinadores:", error);
         return false;
+    }
+};
+
+// COORDINADOR FORMULARIO ==================
+
+export const getEntidades = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/entidades/`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("Error cargando entidades:", error);
+        return [];
+    }
+};
+
+export const getZonas = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/zonas/`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("Error cargando zonas:", error);
+        return [];
     }
 };

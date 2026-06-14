@@ -7,6 +7,7 @@ import LoginPage from '../pages/AuthPage';
 import TiendaPage from '../pages/TiendaPage';
 import CrearTienda from '../pages/CrearTiendaPage';
 import CoordinadoresPage from '../pages/CoordinadoresPage';
+import FormularioCoordinador from '../pages/FormularioCoordinador';
 import AsignacionTurnoPage from '../pages/AsignacionTurnoPage';
 import CrearTurnoPage from '../pages/CrearTurnoPage';
 import AsignarParticipacion from '../pages/AsignarParticipacionPage';
