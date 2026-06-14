@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getTiendas, getCadenas, getZonas, getLocalidades, eliminarTienda, filtrarTiendas } from '../services/tiendaService';
-import '../assets/global.css'
-import './tienda.css';
+import '../styles/global.css'
+import '../styles/tienda.css';
 
 export default function TiendasPage() {
     // estados de datos que vienen de base de datos
