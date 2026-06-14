@@ -283,38 +283,36 @@
 
 /*Retoques de la tabla para campañas*/
 
-.modernTable {
+.campanya-table-card .modernTable {
     table-layout: fixed;
-
 }
 
-.modernTable th:nth-child(1),
-.modernTable td:nth-child(1) {
+.campanya-table-card .modernTable th:nth-child(1),
+.campanya-table-card .modernTable td:nth-child(1) {
     width: 12%;
 }
 
-.modernTable th:nth-child(2),
-.modernTable td:nth-child(2) {
+.campanya-table-card .modernTable th:nth-child(2),
+.campanya-table-card .modernTable td:nth-child(2) {
     width: 13%;
 }
 
-.modernTable th:nth-child(3),
-.modernTable td:nth-child(3) {
+.campanya-table-card .modernTable th:nth-child(3),
+.campanya-table-card .modernTable td:nth-child(3) {
     width: 19%;
 }
 
-.modernTable th:nth-child(4),
-.modernTable td:nth-child(4),
-.modernTable th:nth-child(5),
-.modernTable td:nth-child(5) {
+.campanya-table-card .modernTable th:nth-child(4),
+.campanya-table-card .modernTable td:nth-child(4),
+.campanya-table-card .modernTable th:nth-child(5),
+.campanya-table-card .modernTable td:nth-child(5) {
     width: 12%;
 }
 
-.modernTable th:nth-child(6),
-.modernTable td:nth-child(6) {
+.campanya-table-card .modernTable th:nth-child(6),
+.campanya-table-card .modernTable td:nth-child(6) {
     width: 32%;
 }
-
 
 
 /* ============================ */

@@ -4,15 +4,20 @@
 	padding: 25px;
 	min-height: calc(100vh - 80px);
 	box-sizing: border-box;
+	width: 100%; 
+	overflow: hidden; 
 }
 
 .left-column {
-	flex: 1; /* Ocupará todo el espacio disponible automáticamente */
+	flex: 1;
 	display: flex;
 	flex-direction: column;
-	min-width: 0;
+	min-width: 0; 
+	
 }
 
+
+/* Modal de la derecha en Asignacion de Turnos: Si no tiene la clase open, no se muestra*/
 .right-column {
 	width: 0;
 	opacity: 0;
@@ -22,7 +27,7 @@
 
 .right-column.open {
 	width: 400px;
-	margin-left: 25px; /* Separación con la tabla */
+	margin-left: 25px;
 	opacity: 1;
 }
 
@@ -68,7 +73,6 @@
 	margin: 0;
 }
 
-/* Selector de horarios */
 #volunteer-schedule, #volunteer-lineal {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -151,6 +155,16 @@
 	background-color: #002244;
 }
 
+#export-button {
+	background-color: var(--bg-white);
+	color: var(--primary-blue);
+	border: 1px solid var(--primary-blue);
+}
+
+#export-button:hover {
+	background-color: var(--bg-main);
+}
+
 #cancel-button {
 	background-color: var(--bg-white);
 	color: var(--status-red);
@@ -168,7 +182,6 @@
 	pointer-events: none;
 }
 
-/* Filtros Superiores */
 .filtros-container {
 	display: flex;
 	gap: 20px;

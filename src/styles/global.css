@@ -11,7 +11,6 @@
     --text-muted: #64748b;
     --border-color: #e2e8f0;
 
-    /* Colores de estado */
     --status-green: #10b981;
     --status-red: #ef4444;
     --status-yellow: #f59e0b;
@@ -25,7 +24,6 @@ body {
     color: var(--text-dark);
 }
 
-/* Estilos de Tarjeta */
 .card {
     background-color: var(--bg-white);
     border-radius: 8px;
@@ -33,7 +31,6 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-/* Botones estándar */
 .btn-primary {
     background-color: var(--primary-blue);
     color: white;
@@ -61,11 +58,11 @@ body {
 }
 
 .btn-outline:disabled {
-    color: #a0a0a0; /* Texto gris claro */
-    border-color: #d1d5db; /* Borde gris muy suave */
-    background-color: #f3f4f6; /* Fondo gris casi blanco */
-    cursor: not-allowed; /* Cambia el ratón al icono de prohibido/bloqueado */
-    transform: none; /* Evita que haga el efecto de levantarse si pasas el ratón */
+    color: #a0a0a0;
+    border-color: #d1d5db;
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .btn-outline:hover {
@@ -77,8 +74,9 @@ body {
 }
 
 .table-container {
-    overflow-y: auto;
+    overflow: auto;
     padding: 0;
+    width: 100%;
 }
 
 .modernTable {
