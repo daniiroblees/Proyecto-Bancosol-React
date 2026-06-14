@@ -149,6 +149,7 @@ tbody tr.selected {
 
 .buttons-wrapper {
   flex-shrink: 0; /* Evita que los botones se aplasten */
+  margin: 0.5rem;
   border-top: 1px solid var(--border-color); /* Una rayita muy fina separadora */
   padding-top: 15px; /* Un poco de aire por arriba */
 }

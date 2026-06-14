@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getColaboradores, filtrarColaboradores, buscarColaborador, buscarContactoPrincipal, eliminarColaborador } from '../services/colaboradorService';
 import { getLocalidades } from '../services/tiendaService';
 import { getCoordinadores } from '../services/coordinadorService';
+import PanelInfoColaborador from '../components/AsignacionTurno/PanelInfoColaborador';
 import '../styles/global.css';
 import '../styles/colaboradores.css';
 
@@ -148,40 +149,7 @@ export default function ColaboradoresPage() {
                     <div className={`right-column ${colabSeleccionado ? 'open' : ''}`}>
                         {colabSeleccionado && (
                             <div className="side-panel-unified">
-                                <div className="card side-panel">
-                                    <div id="colaborador-localization">
-                                        <p id="lbl-colaborador">{colabSeleccionado.nombre}</p>
-                                        <p id="lbl-domicilio">{colabSeleccionado.domicilio}</p>
-                                        <p className="text-muted">{colabSeleccionado.codigo}, {colabSeleccionado.localidadSede?.nombre}</p>
-                                        <p className="text-muted">Colabora en: {colabSeleccionado.colaboraEn?.nombre}</p>
-                                    </div>
-                                    <div id="colaborador-schedule">
-                                        <div id="contactosCard">
-                                            <div className="info-card">
-                                                <div className="info-header">
-                                                    <div className="info-main">
-                                                        <p className="lbl-capitan">{contactoPrincipal?.nombre || "Sin contacto principal"}</p>
-                                                    </div>
-                                                    <div className="info-side">
-                                                        <div>TELÉFONO</div>
-                                                        <div>{contactoPrincipal?.telefono || "--"}</div>
-                                                    </div>
-                                                </div>
-                                                <div className="info-body">
-                                                    <p><strong>Email: </strong>{contactoPrincipal?.email || "--"}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="colaborador-observaciones">
-                                            <p className="section-title">Observaciones</p>
-                                            <div className="info-card">
-                                                <div className="info-body">
-                                                    <p>{colabSeleccionado.observaciones || "Sin observaciones"}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <PanelInfoColaborador colaboradorSeleccionado={colabSeleccionado} contactoPrincipal={contactoPrincipal} />
                                 <div className="buttons-wrapper">
                                     <div className="buttons-section">
                                         <div className="flex-buttons">
