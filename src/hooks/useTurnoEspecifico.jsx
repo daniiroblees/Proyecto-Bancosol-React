@@ -9,7 +9,6 @@ export const useTurnoEspecifico = (tiendaSeleccionada) => {
     const [linealActual, setLinealActual] = useState(1);
     const [turnoData, setTurnoData] = useState(null);
 
-    // Cuando cambia la tienda seleccionada, reseteamos a Turno 1 / Lineal 1 y buscamos datos
     useEffect(() => {
         if (tiendaSeleccionada) {
             setTurnoActual(1);

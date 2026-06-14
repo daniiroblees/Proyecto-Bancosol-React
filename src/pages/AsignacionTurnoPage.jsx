@@ -25,14 +25,12 @@ export default function AsignacionTurnoPage() {
             />
 
             <main className="page-wrapper">
-                <div className="left-column">
-                    <TablaAsignacionTurno 
-                        asignaciones={asignaciones}
-                        cargando={cargando}
-                        tiendaSeleccionada={tiendaSeleccionada}
-                        handleClickFila={handleClickFila}
-                    />
-                </div>
+                <TablaAsignacionTurno 
+                    asignaciones={asignaciones}
+                    cargando={cargando}
+                    tiendaSeleccionada={tiendaSeleccionada}
+                    handleClickFila={handleClickFila}
+                />
 
                 <PanelTurnoData 
                     tiendaSeleccionada={tiendaSeleccionada}

@@ -6,6 +6,7 @@ export default function TablaAsignacionTurno({ asignaciones, cargando, tiendaSel
     };
 
     return (
+	<div className="left-column">
         <div className="table-container card">
             <table className="modernTable">
                 <thead>
@@ -46,5 +47,6 @@ export default function TablaAsignacionTurno({ asignaciones, cargando, tiendaSel
                 </tbody>
             </table>
         </div>
+	</div>
     );
 }

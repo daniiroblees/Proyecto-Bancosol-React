@@ -7,11 +7,9 @@ export const useAsignacionTurno = () => {
     const [campanyas, setCampanyas] = useState([]);
     const [cargando, setCargando] = useState(true);
 
-    // Filtros activos
     const [tipoCampanyaId, setTipoCampanyaId] = useState(0);
     const [campanyaId, setCampanyaId] = useState(0);
 
-    // Estado para saber si el panel se abre
     const [tiendaSeleccionada, setTiendaSeleccionada] = useState(null);
     const [linealesTotales, setLinealesTotales] = useState(1);
 
