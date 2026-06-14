@@ -8,8 +8,9 @@ export default function PanelTurno({ tiendaSeleccionada, linealesTotales, cerrar
         handleTurnoChange, handleLinealChange, handleCrearEditarTurno
     } = useTurnoEspecifico(tiendaSeleccionada);
 
- 	const rolUsuario = localStorage.getItem('usuario_rol');
-    const puedeEditar = ['ADMIN', 'COORD'].includes(rolUsuario);
+    const { usuario } = useAuth();
+    const rol = usuario?.rol?.startsWith('ROLE_') ? usuario.rol : `ROLE_${usuario?.rol}`;
+    const puedeEditar = rol === 'ROLE_ADMIN' || rol === 'ROLE_COORD';
  
     return (
         <div className={`right-column ${tiendaSeleccionada ? 'open' : ''}`}>

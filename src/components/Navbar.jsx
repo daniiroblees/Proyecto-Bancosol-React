@@ -1,32 +1,39 @@
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import '../styles/navbar.css';
 import logo from '/src/assets/LOGO_BANCOSOL.png';
+import { useContext } from 'react';
+import { ContextoAuten } from '../auth/ContextoAuten';
 
 import { logout } from '../services/authService';
 
 export default function Navbar() {
+    const { usuario } = useContext(ContextoAuten);
     const location = useLocation();
 
-    const nombreUsuario = localStorage.getItem('usuario_nombre') || 'Usuario';
-    const rolUsuario = localStorage.getItem('usuario_rol');
-    
+    const nombreUsuario = usuario?.nombre || 'Usuario';
+    const rolUsuario = usuario?.rol;
+
     // Sacamos la primera letra y la ponemos en mayúscula para el avatar
     const inicial = nombreUsuario.charAt(0).toUpperCase();
     
-    // Comprobamos si es administrador
-    const esAdmin = rolUsuario === 'ROLE_ADMIN';
+    // Comprobamos si es administrador o coordinador
+    const esAdmin = rolUsuario === 'ADMIN';
+    const esCoord = rolUsuario === 'COORD';
 
     //  marcar la pestaña activa
     const checkActive = (path) => {
         return location.pathname.includes(path) ? "nav-item active" : "nav-item";
     };
 
-    //  añadir la clase disabled si no es admin
-    const checkActiveWithRole = (path, requiereAdmin) => {
+    const getNavClass = (path, soloAdmin = false, adminOCoord = false) => {
         let className = checkActive(path);
-        if (requiereAdmin && !esAdmin) {
+
+        if (soloAdmin && !esAdmin) {
+            className += " disabled";
+        } else if (adminOCoord && !esAdmin && !esCoord) {
             className += " disabled";
         }
+
         return className;
     };
 
@@ -47,8 +54,8 @@ export default function Navbar() {
                 
                 <nav className="bottom-navbar">
                     <ul className="nav-menu">
-                        <li className={checkActive('/campanyas')}>
-                            <Link to="/campanyas" className="nav-link">
+                        <li className={getNavClass('/campanyas', true)}>
+                            <Link to="#" className="nav-link">
                                 <i className="ri-megaphone-line"></i>
                                 <span>Gestión de Campañas</span>
                             </Link>
@@ -68,7 +75,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         
-                        <li className={checkActive('/coordinadores')}>
+                        <li className={getNavClass('/coordinadores', true)}>
                             <Link to="/coordinadores" className="nav-link">
                                 <i className="ri-team-line"></i>
                                 <span>Coordinadores</span>

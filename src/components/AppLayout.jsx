@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ProveedorAuten } from '../auth/proveedorAuten';
 import RutaProtegida from './RutaProtegida'; 
 import Navbar from './Navbar'; 
+import RolRequerido from '../auth/RolRequerido';
 
 import LoginPage from '../pages/AuthPage';
 import TiendaPage from '../pages/TiendaPage';
@@ -28,6 +29,8 @@ export default function AppLayout() {
           {/* Rutas Protegidas y con Cabecera */}
           <Route element={<RutaProtegida />}>
             <Route element={<Navbar />}>
+
+              {/* ACCESO GENERAL, sin rol minimo */}
               
               <Route path="/tiendas" element={<TiendaPage />} />
               <Route path="/tiendas/crearTienda" element={<CrearTienda />} />
@@ -35,11 +38,10 @@ export default function AppLayout() {
               <Route path="/tiendas/asignarParticipacion" element={<AsignarParticipacion />} />
 
               <Route path="/coordinadores" element={<CoordinadoresPage />} />
-			  <Route path="/coordinadores/crearCoordinador" element={<FormularioCoordinador />} />
+			        <Route path="/coordinadores/crearCoordinador" element={<FormularioCoordinador />} />
           	  <Route path="/coordinadores/editarCoordinador" element={<FormularioCoordinador />} />
           
               <Route path="/asignacion_turno" element={<AsignacionTurnoPage />} />
-              <Route path="/turnos/crearTurno" element={<CrearTurnoPage />} />
 
               <Route path="/colaboradores" element={<RutaProtegida><ColaboradoresPage /></RutaProtegida>} />
               <Route path="/colaboradores/crear" element={<RutaProtegida><FormularioColaboradorPage /></RutaProtegida>} />
@@ -47,6 +49,10 @@ export default function AppLayout() {
               <Route path="/colaboradores/:idColaborador/contacto/crear" element={<RutaProtegida><FormularioContactoPage /></RutaProtegida>} />
               <Route path="/colaboradores/:idColaborador/contacto/editar/:idContacto" element={<RutaProtegida><FormularioContactoPage /></RutaProtegida>} />
 
+              {/*  ACCESO ROLE_ADMIN o ROLE_COORD */}
+              <Route element={<RolRequerido roles={['ROLE_ADMIN', 'ROLE_COORD']} />}>
+                <Route path="/turnos/crearTurno" element={<CrearTurnoPage />} />
+              </Route>
 
             </Route>
           </Route>
